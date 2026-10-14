@@ -4,6 +4,8 @@
 
 이 저장소는 [StarKnightt/jungle-trail](https://github.com/StarKnightt/jungle-trail)의 한국어 포크입니다. 원작의 그래픽·물리·사운드와 저작권 표기는 유지하고, 화면에 표시되는 안내와 성능 정보, 모바일 조작 설명을 한국어로 바꿨습니다.
 
+**한국어판 실행: https://sigco3111.github.io/jungle-trail/**
+
 ![정글 오솔길에서 유적과 폭포까지](media/reel.webp)
 
 ## 한국어판 변경 사항
