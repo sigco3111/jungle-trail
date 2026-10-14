@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Jungle Trail</title>
+<title>정글 트레일 - Jungle Trail</title>
 <style>
   :root { color-scheme: dark; }
   html, body { margin: 0; height: 100%; overflow: hidden; background: #05070a; }
@@ -13,8 +13,8 @@
   #view { display: block; width: 100vw; height: 100vh; }
   #boot {
     position: fixed; inset: 0; display: grid; place-items: center;
-    font: 300 13px/1.7 ui-sans-serif, system-ui, sans-serif;
-    letter-spacing: .22em; text-transform: uppercase; color: #6d7a63;
+    font: 300 13px/1.7 "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: .08em; text-transform: uppercase; color: #6d7a63;
     background: #05070a; pointer-events: none;
   }
   .debug-overlay {
@@ -29,7 +29,7 @@
     background: rgba(7, 12, 9, .86);
     box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
     backdrop-filter: blur(14px) saturate(.8);
-    font: 500 11px/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font: 500 11px/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans KR", "Malgun Gothic", monospace;
     overflow: hidden;
     user-select: none;
   }
@@ -103,11 +103,11 @@
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
-  .debug-overlay.is-collapsed { width: 148px; }
+  .debug-overlay.is-collapsed { width: 170px; }
   .debug-overlay.is-collapsed .debug-overlay__body { display: none; }
   @media (max-width: 520px) {
     .debug-overlay { top: 8px; right: 8px; width: calc(100vw - 16px); }
-    .debug-overlay.is-collapsed { width: 148px; }
+    .debug-overlay.is-collapsed { width: 170px; }
   }
 
   /* Below here is the phone: the capability screen shown before the scene is
@@ -142,7 +142,7 @@
              max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
     background: radial-gradient(130% 80% at 50% 0%, #0c1411, #05070a 68%);
     color: #d8e4d1;
-    font: 400 15px/1.62 ui-sans-serif, system-ui, sans-serif;
+    font: 400 15px/1.62 "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     transition: opacity .4s ease;
   }
@@ -162,7 +162,7 @@
     color: #7f8f77;
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: .22em;
+    letter-spacing: .08em;
     text-transform: uppercase;
   }
   .gate__title {
@@ -183,7 +183,7 @@
     grid-template-columns: 122px minmax(0, 1fr);
     gap: 12px;
     padding: 3px 0;
-    font: 500 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font: 500 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans KR", "Malgun Gothic", monospace;
   }
   .gate__key dt { color: #a9d398; }
   .gate__key dd { margin: 0; color: #869381; }
@@ -196,7 +196,7 @@
     border: 0;
     border-radius: 10px;
     background: #9ac68a;
-    font: 600 13px/1 ui-sans-serif, system-ui, sans-serif;
+    font: 600 13px/1 "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, system-ui, sans-serif;
     letter-spacing: .14em;
     text-transform: uppercase;
     cursor: pointer;
@@ -209,8 +209,8 @@
     padding: 30px 0;
     color: #a9d398;
     text-align: center;
-    font: 500 12px/1 ui-sans-serif, system-ui, sans-serif;
-    letter-spacing: .2em;
+    font: 500 12px/1 "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: .08em;
     text-transform: uppercase;
     animation: gate-pulse 1.6s ease-in-out infinite;
   }
@@ -291,7 +291,7 @@
 </head>
 <body>
 <canvas id="view"></canvas>
-<div id="boot">jungle trail</div>
+<div id="boot">정글을 준비하고 있습니다</div>
 <script type="module" src="./src/main.js"></script>
 </body>
 </html>
