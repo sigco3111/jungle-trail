@@ -16,15 +16,15 @@ import { POSTER } from './poster.js';
 import { isTouchPrimary } from './detect.js';
 
 const TOUCH_CONTROLS = [
-  ['Drag anywhere', 'Look'],
-  ['Hold the pad', 'Walk'],
+  ['화면을 드래그', '시점 이동'],
+  ['이동 패드 누르기', '걷기'],
 ];
 
 const KEY_CONTROLS = [
-  ['Click', 'Lock the pointer'],
-  ['Mouse', 'Look'],
-  ['W A S D', 'Move'],
-  ['Shift / Space', 'Sprint / jump'],
+  ['클릭', '마우스 고정'],
+  ['마우스', '시점 이동'],
+  ['W A S D', '이동'],
+  ['Shift / Space', '달리기 / 점프'],
 ];
 
 const el = (tag, className, text) => {
@@ -62,27 +62,25 @@ export function presentGate() {
   const still = document.createElement('img');
   still.className = 'gate__still';
   still.src = POSTER;
-  still.alt = 'A frame from the trail: broad understory leaves under a closed '
-    + 'canopy, with a shaft of sunlight falling across the path.';
+  still.alt = '울창한 나무 아래 넓은 잎이 펼쳐지고 오솔길 위로 햇빛이 비치는 정글 풍경.';
   still.width = 720;
   still.height = 405;
   still.decoding = 'async';
 
   const body = el('div', 'gate__body');
-  const kicker = el('p', 'gate__kicker', 'Real-time render');
-  const title = el('h1', 'gate__title', 'Jungle Trail');
+  const kicker = el('p', 'gate__kicker', '실시간 3D 렌더링');
+  const title = el('h1', 'gate__title', '정글 트레일');
   title.id = 'gate-title';
 
   const lede = el('p', 'gate__lede',
-    'Everything here is computed in your browser as the page loads: a valley '
-    + '180 by 492 metres, a hundred thousand plants, 536 eroded stone blocks '
-    + 'and sixty synthesised sounds. No photographs, no model files, no '
-    + 'recordings.');
+    '가로 180m, 세로 492m의 계곡, 약 10만 그루의 식물, 침식된 석재 536개, '
+    + '합성 사운드 60개를 브라우저에서 직접 생성합니다. 사진이나 3D 모델 파일, '
+    + '녹음된 소리는 사용하지 않습니다.');
 
   const warn = el('p', 'gate__lede',
-    'It was built for a desktop GPU and the quality is not turned down to fit '
-    + 'a phone. Recent iPhones and iPads do run it. Older phones will get hot '
-    + 'and slow, and some will give up.');
+    '데스크톱 GPU를 기준으로 제작되었으며, 휴대전화에서도 그래픽 품질을 낮추지 않습니다. '
+    + '최근 iPhone과 iPad에서는 실행할 수 있지만, 오래된 휴대전화에서는 '
+    + '발열과 속도 저하가 생기거나 실행되지 않을 수 있습니다.');
 
   const keys = el('dl', 'gate__keys');
   for (const [input, action] of isTouchPrimary() ? TOUCH_CONTROLS : KEY_CONTROLS) {
@@ -91,11 +89,11 @@ export function presentGate() {
     keys.append(row);
   }
 
-  const enter = el('button', 'gate__enter', 'Enter anyway');
+  const enter = el('button', 'gate__enter', '정글 탐험 시작');
   enter.type = 'button';
 
   const note = el('p', 'gate__note',
-    'Building the world takes a few seconds after you tap.');
+    '시작을 누르면 정글을 생성합니다. 기기에 따라 시간이 걸릴 수 있습니다.');
 
   body.append(kicker, title, lede, warn, keys, enter, note);
   card.append(still, body);
@@ -113,7 +111,7 @@ export function presentGate() {
       /* Everything below the still is replaced rather than hidden, so the
        * screen keeps its size and the frame stays on it. The player is
        * looking at the picture for the next several seconds either way. */
-      body.replaceChildren(el('p', 'gate__building', 'Building the world'));
+      body.replaceChildren(el('p', 'gate__building', '정글을 생성하고 있습니다'));
       root.classList.add('is-building');
 
       /* Two frames, not one. A single rAF fires before the paint it belongs
