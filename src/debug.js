@@ -11,12 +11,12 @@ const browserName = () => {
   if (/Firefox\//.test(ua)) return 'Firefox';
   if (/Chrome\//.test(ua)) return 'Chrome';
   if (/Safari\//.test(ua)) return 'Safari';
-  return 'Unknown browser';
+  return '알 수 없는 브라우저';
 };
 
 const platformName = () => {
-  const platform = navigator.userAgentData?.platform || navigator.platform || 'Unknown';
-  const mobile = navigator.userAgentData?.mobile ? ' mobile' : '';
+  const platform = navigator.userAgentData?.platform || navigator.platform || '알 수 없음';
+  const mobile = navigator.userAgentData?.mobile ? ' 모바일' : '';
   return `${platform}${mobile}`;
 };
 
@@ -50,17 +50,17 @@ export class DebugOverlay {
     this.root = document.createElement('aside');
     this.root.id = 'debug-overlay';
     this.root.className = 'debug-overlay';
-    this.root.setAttribute('aria-label', 'Performance debug overlay');
+    this.root.setAttribute('aria-label', '성능 정보 패널');
 
     const header = document.createElement('button');
     header.className = 'debug-overlay__header';
     header.type = 'button';
     header.setAttribute('aria-expanded', 'true');
-    header.title = 'Collapse debug overlay';
+    header.title = '성능 정보 접기';
 
     const title = document.createElement('span');
     title.className = 'debug-overlay__title';
-    title.textContent = 'Debug';
+    title.textContent = '성능 정보';
 
     this.summary = document.createElement('span');
     this.summary.className = 'debug-overlay__summary';
@@ -74,23 +74,23 @@ export class DebugOverlay {
 
     this.body = document.createElement('div');
     this.body.className = 'debug-overlay__body';
-    this.addSection('Performance', [
+    this.addSection('성능', [
       ['fps', 'FPS'],
-      ['frame', 'CPU frame'],
-      ['draws', 'Scene draws'],
-      ['triangles', 'Triangles'],
+      ['frame', 'CPU 프레임'],
+      ['draws', '장면 그리기'],
+      ['triangles', '삼각형 수'],
     ]);
-    this.addSection('Renderer', [
-      ['tier', 'Quality'],
-      ['resolution', 'Resolution'],
-      ['resources', 'GPU resources'],
+    this.addSection('렌더러', [
+      ['tier', '품질'],
+      ['resolution', '해상도'],
+      ['resources', 'GPU 리소스'],
       ['gpu', 'GPU'],
-      ['graphics', 'Graphics API'],
+      ['graphics', '그래픽 API'],
     ]);
-    this.addSection('System', [
-      ['platform', 'Platform'],
-      ['browser', 'Browser'],
-      ['hardware', 'Hardware'],
+    this.addSection('시스템', [
+      ['platform', '플랫폼'],
+      ['browser', '브라우저'],
+      ['hardware', '하드웨어'],
     ]);
 
     this.root.append(header, this.body);
@@ -147,7 +147,7 @@ export class DebugOverlay {
     this.expanded = expanded;
     this.root.classList.toggle('is-collapsed', !expanded);
     this.header.setAttribute('aria-expanded', String(expanded));
-    this.header.title = `${expanded ? 'Collapse' : 'Expand'} debug overlay`;
+    this.header.title = `성능 정보 ${expanded ? '접기' : '펼치기'}`;
     this.chevron.textContent = expanded ? '−' : '+';
   }
 
@@ -169,28 +169,28 @@ export class DebugOverlay {
     this.set('fps', fps ? fps.toFixed(1) : '—');
     this.set('frame', game.frameMs ? `${game.frameMs.toFixed(2)} ms` : '—');
     this.set('draws', formatCount(info.calls));
-    this.set('triangles', formatCount(info.triangles), `${info.triangles.toLocaleString()} triangles`);
-    this.set('tier', `${game.tier} · ${game.frameCap} fps cap`);
+    this.set('triangles', formatCount(info.triangles), `${info.triangles.toLocaleString()}개 삼각형`);
+    this.set('tier', `${({ low: '낮음', medium: '보통', high: '높음', ultra: '최고' })[game.tier] || game.tier} · 최대 ${game.frameCap} FPS`);
     this.set(
       'resolution',
       `${canvas.width} × ${canvas.height} · ${renderer.getPixelRatio().toFixed(2)} dpr`,
     );
     this.set(
       'resources',
-      `${info.geometries} geo · ${info.textures} tex · ${info.programs} programs`,
+      `${info.geometries} 도형 · ${info.textures} 텍스처 · ${info.programs} 프로그램`,
     );
     this.set('gpu', this.gpu.renderer, `${this.gpu.vendor} · ${this.gpu.renderer}`);
     this.set(
       'graphics',
-      `${this.gpu.webgl.replace('WebGL ', '')} · ${this.gpu.maxTexture}px max texture`,
+      `${this.gpu.webgl.replace('WebGL ', '')} · ${this.gpu.maxTexture}px 최대 텍스처`,
     );
     this.set('platform', platformName());
     this.set('browser', browserName(), navigator.userAgent);
 
     const cores = navigator.hardwareConcurrency
-      ? `${navigator.hardwareConcurrency} logical cores`
-      : 'core count unavailable';
-    const memory = navigator.deviceMemory ? ` · ${navigator.deviceMemory} GB memory` : '';
+      ? `${navigator.hardwareConcurrency}개 논리 코어`
+      : '코어 수 확인 불가';
+    const memory = navigator.deviceMemory ? ` · ${navigator.deviceMemory} GB 메모리` : '';
     this.set('hardware', cores + memory);
   }
 
