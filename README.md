@@ -1,281 +1,116 @@
-# Jungle Trail
+# 정글 트레일 (Jungle Trail) 한국어판
 
-A first-person walk down a winding jungle trail into overgrown stone ruins with a
-waterfall, built in Three.js with zero external art assets. Every texture, mesh
-and sound in the scene is generated procedurally in code. There are no image
-files, no models, no audio recordings and no material libraries: the leaf atlas,
-the bark, the ground, the stone, the character's skin and all sixty audio buffers
-are computed at load time.
+울창한 정글 오솔길을 따라 고대 석조 유적과 폭포까지 걸어가는 **Three.js 기반 1인칭 탐험 데모**입니다. 전투나 점수 경쟁 대신 풍경과 소리, 빛을 감상하는 경험에 초점을 맞췄습니다.
 
-![Nine seconds along the trail: the canopy corridor, the ruins, the falls](media/reel.webp)
+이 저장소는 [StarKnightt/jungle-trail](https://github.com/StarKnightt/jungle-trail)의 한국어 포크입니다. 원작의 그래픽·물리·사운드와 저작권 표기는 유지하고, 화면에 표시되는 안내와 성능 정보, 모바일 조작 설명을 한국어로 바꿨습니다.
 
-*Captured from the running build with `tools/reel.mjs`, one simulated frame at a
-time. Nothing in it is composited and nothing in it is a cut-away.*
+![정글 오솔길에서 유적과 폭포까지](media/reel.webp)
 
-**Walk it: https://starknightt.github.io/jungle-trail/**
+## 한국어판 변경 사항
 
-**Read the brief it was built from: [PROMPT.md](PROMPT.md).** One page, unedited,
-and most of the story of how this exists at all.
+- 페이지 제목, 문서 언어(`ko`), 정글 생성 안내를 한국어로 변경했습니다.
+- 모바일 시작 화면의 소개, 기기 성능 경고, 조작법, 시작 버튼, 로딩 문구와 이미지 대체 텍스트를 번역했습니다.
+- 이동 패드의 접근성 안내를 번역했습니다.
+- F3 성능 패널의 항목, 품질 단계, 접기/펼치기 안내와 하드웨어 정보를 번역했습니다.
+- 한국어 시스템 글꼴을 우선 사용하며 패널 너비와 일부 글자 간격을 조정했습니다. 별도 웹폰트를 내려받지 않습니다.
+- 원본 README는 [README.en.md](README.en.md)에 그대로 보존했습니다. 원작 제작 요구사항 [PROMPT.md](PROMPT.md), 소스의 개발자 주석, 기술 식별자와 LICENSE는 유지했습니다.
 
-It wants a desktop GPU. A phone is told so before the scene is built and can go
-in anyway; there is no reduced-quality mobile version, because the quality is
-the point of the thing.
+## 탐험 방법
 
-## Running it locally
+### PC 조작
 
-There is no build step. The page is plain ES modules with an importmap, so it
-only needs a static file server.
+| 입력 | 동작 |
+|---|---|
+| 화면 클릭 | 마우스 포인터 고정 |
+| 마우스 이동 | 시점 이동 |
+| W / A / S / D | 이동 |
+| Shift | 달리기 |
+| Space | 점프 |
+| 숫자 1 ~ 5 | 오솔길의 주요 지점으로 이동 |
+| F3 | 성능 정보 표시 / 숨기기 |
+| 성능 패널 제목 클릭 | 패널 접기 / 펼치기 |
+| Esc | 브라우저의 포인터 고정 해제 |
 
-```
-git clone https://github.com/StarKnightt/jungle-trail.git
+숫자키 이동 지점은 **1: 오솔길 입구, 2: 오솔길 중간, 3: 유적 진입부, 4: 사원 공터, 5: 폭포**입니다. PC에서는 몰입감을 위해 기본 화면에 메뉴나 HUD가 없으며, 정글 생성 후 화면을 클릭해 탐험하면 됩니다.
+
+### 모바일 조작
+
+시작 안내를 읽고 **"정글 탐험 시작"**을 누릅니다. 화면을 드래그하면 시점이 바뀌고, 왼쪽 아래 이동 패드를 누르고 있으면 앞으로 걷습니다.
+
+> 데스크톱 GPU를 기준으로 제작된 데모입니다. 모바일에서도 그래픽 품질을 자동으로 낮추지 않습니다. 최근 iPhone/iPad에서 실행할 수 있다는 원작 설명이 있지만 모든 기기의 실행을 보장하지 않습니다. 오래된 휴대전화에서는 발열, 느린 로딩, 프레임 저하 또는 실행 실패가 생길 수 있습니다.
+
+![오솔길 입구](media/01-trailhead.jpg)
+
+## 설치 없이 실행하는 구조
+
+별도 게임 서버나 빌드 과정이 필요하지 않습니다. `index.html`과 `src/`의 JavaScript ES 모듈을 정적 호스팅으로 제공하면 됩니다. GitHub Pages에 그대로 배포할 수 있습니다.
+
+다만 **완전한 오프라인 앱은 아닙니다.** Three.js r170을 jsDelivr CDN에서 가져오기 때문에 첫 실행에는 인터넷 연결과 해당 CDN 접근이 필요합니다. 장면에 쓰이는 사진, 모델, 녹음 파일은 별도로 내려받지 않습니다.
+
+## 로컬 실행
+
+Node.js를 설치한 뒤 다음 명령을 실행합니다.
+
+```bash
+git clone https://github.com/sigco3111/jungle-trail.git
 cd jungle-trail
 npm run serve
 ```
 
-Then open `http://localhost:8099/`. Any other static server works equally well;
-opening `index.html` from the filesystem does not, because ES modules and workers
-need a real origin.
+브라우저에서 `http://localhost:8099/`를 엽니다. 다른 정적 웹 서버를 사용해도 됩니다. 파일 탐색기에서 `index.html`을 직접 열면 ES 모듈과 Worker의 출처 제한 때문에 정상 작동하지 않을 수 있습니다.
 
-`npm install` is only needed for the capture tools in `tools/`, which use
-Playwright. The game itself does not need it.
+게임 실행만 한다면 `npm install`은 필요하지 않습니다. `tools/`의 Playwright 캡처 도구를 사용할 때만 개발 의존성을 설치합니다.
 
-![Trailhead under closed canopy](media/01-trailhead.jpg)
+## 장면 구성과 기술
 
-## Controls
+원본 README에 기재된 설계 수치입니다. 한국어판에서 새로 측정한 결과는 아닙니다.
 
-| Input | Action |
+- 180 × 492m의 지형과 약 423.8m 길이의 오솔길
+- 16종, 약 100,799개의 절차적 식물
+- 침식 형태를 계산한 석재 블록 536개와 사원 유적
+- 22개 뼈대로 구성된 절차적 캐릭터
+- GPU에서 생성하는 잎·나무껍질·지면 등의 텍스처
+- 대기 산란 기반 하늘과 조명, 나뭇잎 투과량을 계산하는 수관 그림자, 볼류메트릭 광선
+- HDR 후처리, 블룸, 피사계 심도, 모션 블러, 필름 그레인
+- 코드로 합성한 17종 음색과 60개 오디오 버퍼
+- 폭포, 물거품, 웅덩이 반사와 환경 사운드
+
+사운드는 브라우저 정책에 따라 사용자의 첫 클릭이나 터치 이후에 시작됩니다.
+
+![사원 공터](media/04-temple-clearing.jpg)
+
+## 성능과 알려진 한계
+
+원작은 RTX 4060, 1600 × 900, `high` 품질에서 약 9 ~ 10ms/프레임을 보고합니다. 이 수치는 원작 제작 환경의 측정값이며 다른 GPU나 브라우저의 속도를 보장하지 않습니다. 기본 프레임 제한은 60 FPS입니다.
+
+원작 자체가 진행 중인 시각 데모입니다. 원본 문서에는 중거리 식생이 평평하게 보이는 문제, 안개의 밀도와 색 분리, 폭포의 물방울 표현 및 반사 품질 등의 개선 여지가 남아 있다고 설명되어 있습니다. 한국어판은 이러한 그래픽 특성을 바꾸지 않습니다.
+
+- 화면이 검거나 로딩이 멈춘 경우: WebGL 지원과 하드웨어 가속, CDN 접근 여부를 확인합니다.
+- 성능이 낮은 경우: PC에서 실행하고 브라우저의 다른 무거운 탭을 닫아 봅니다.
+- 조작되지 않는 경우: PC에서는 먼저 화면을 클릭해 포인터를 고정합니다.
+- 소리가 없는 경우: 화면을 클릭하거나 터치하고 브라우저의 음소거 설정을 확인합니다.
+- F3가 브라우저 기능과 충돌하는 경우: 페이지에 포커스를 둔 상태에서 다시 시도합니다.
+
+## 프로젝트 파일
+
+| 경로 | 내용 |
 |---|---|
-| Click | Lock the pointer |
-| Mouse | Look |
-| W A S D | Move |
-| Shift | Sprint |
-| Space | Jump |
-| 1 - 5 | Teleport along the trail |
-| F3 | Show or hide the debug overlay |
+| `index.html` | 진입 페이지, 스타일, Three.js importmap |
+| `src/main.js` | 장면 구성과 실행 루프 |
+| `src/world/` | 지형, 식생, 유적, 물 |
+| `src/render/` | 렌더링과 후처리 |
+| `src/audio/` | 절차적 사운드 합성 및 오디오 엔진 |
+| `src/mobile/` | 모바일 성능 안내와 터치 조작 |
+| `src/debug.js` | F3 성능 정보 패널 |
+| `media/` | README용 스크린샷과 영상 |
+| `tools/` | 로컬 서버와 캡처·측정 도구 |
 
-The teleport keys are 1 trailhead, 2 mid trail, 3 ruins approach, 4 temple
-clearing, 5 the falls. The debug overlay is hidden on load and stays out of the
-document until F3 puts it there; once it is up, its header collapses it to a
-summary bar and F3 takes it away again.
+## 원작과 라이선스
 
-On a touch device there is no keyboard and no pointer lock, so there are two
-controls instead: drag anywhere to look, and hold the pad in the corner to walk.
-They exist nowhere else. On a desktop the document is a canvas and a script tag,
-and that is the whole of it.
+- 원작자: **StarKnightt**
+- 원본 저장소: [StarKnightt/jungle-trail](https://github.com/StarKnightt/jungle-trail)
+- 원문 문서: [README.en.md](README.en.md)
+- 원작 제작 요구사항: [PROMPT.md](PROMPT.md)
+- 라이선스: **MIT**, 원본 [LICENSE](LICENSE)의 저작권 및 허가 고지를 유지합니다.
 
-![Mid trail](media/02-mid-trail.jpg)
-
-## What is in it
-
-- ~12,000 lines of hand-written code across 43 files in `src/`, comments and
-  blank lines aside.
-- A 423.8 m trail across a 180 x 492 m world, from a 361 x 985 heightfield
-  sampled every 0.5 m.
-- 100,799 individual plants across 16 species, all built from two primitives: a
-  bent leaf card and a swept tube.
-- 536 individually eroded stone blocks. The ruin plan is computed before the
-  terrain, so the ground builds a terrace and spoil banks beneath the temple
-  rather than the temple being dropped onto whatever the ground happened to do.
-- A procedural character: 22 bones, 7,488 triangles, and a 512-square procedural
-  body atlas.
-- 15 GPU texture bakes producing 29 images. The leaf atlas is 2048-square; the
-  bark and ground sets are 1024-square.
-- 17 distinct synthesized voices and 60 audio buffers, baked in a worker on the
-  first user gesture.
-
-![Ruins approach](media/03-ruins.jpg)
-
-## Performance
-
-9 to 10 ms per frame on an RTX 4060 at 1600x900 on the `high` tier. The two ends
-of that are 8.5 ms facing the falls, where 234 scene draw calls cover the screen
-in water and stone, and 11.0 ms in the canopy corridor, where 495 calls put 6.6
-million triangles of leaf card in front of the camera. The game caps itself at
-60 fps; there is no reason for a walking-pace scene to render at 300, and the
-frame rate is therefore not the measurement -- the millisecond is.
-
-Those numbers are higher than the ones this file used to quote, and the frame
-did not get slower. `glFinish` in a page does not wait for the GPU: Chromium
-runs WebGL over a command buffer into a separate process, and finish returns
-once the queue has been handed over. The tools now synchronise on a one-pixel
-`readPixels`, which cannot return before the frame exists. Under the old timer
-the post-processing chain appeared to cost forty microseconds and `ultra`
-rendered faster than `medium`.
-
-Of that frame, the whole post stack -- volumetrics, occlusion, grade, bloom,
-defocus and shutter -- is 1.9 to 2.0 ms at `high`. The grading chain is 0.22 ms of
-it standing still and 0.28 ms while the camera moves: defocus 0.13, bloom 0.12,
-shutter 0.11 when there is motion to integrate, and the grade, the vignette, the
-aberration and the grain between 0.01 and 0.06 each, because they are arithmetic
-inside a pass that has to run anyway. Those are means of three runs; the spread
-between runs on a single figure is about 0.03, which is why the isolated pass
-timings are quoted rather than a frame-level difference -- a quarter of a
-millisecond does not show up reliably against a 9 ms frame that varies by one.
-
-Every tier runs every effect. Defocus and the shutter were `high` and `ultra`
-only in the first version, which meant half the quality ladder was shipping a
-look nobody had reviewed; measured, six defocus taps cost 0.05 ms, and the tiers
-now scale the sampling of each effect rather than its presence.
-
-The pool's planar reflection is the one pass that is not free: it is a second
-submission of the whole clearing and it costs about 1.4 ms of a falls-facing
-frame. It is skipped entirely whenever the pool is off screen, which is most of
-the walk, it runs at 36 per cent resolution, it reuses the shadow map the main
-pass is about to use, and it refreshes on alternate frames. Off below the `high`
-tier, where the water falls back to a graded analytic reflection.
-
-## Techniques
-
-**GPU texture baking.** Every texture is a GLSL `surf()` function rendered into a
-render target. Normal maps are derived by Sobel-sampling the same function rather
-than being authored separately, so the normal can never disagree with the albedo
-it belongs to.
-
-**Noise.** Perlin FBM and ridged Perlin, Ashima simplex in 2D and 3D, periodic
-domain-wrapped Perlin taking a `vec2` period so a texture can tile at a different
-rate on each axis, and Worley cellular noise.
-
-**Sky and lighting.** Atmospheric scattering is baked to a cube and
-PMREM-prefiltered, which means the sky you look at and the image-based lighting on
-every surface are literally the same function evaluated twice, instead of a
-skybox plus a separately tuned ambient term that drifts away from it.
-
-**Canopy shadowing.** The canopy is not in the shadow map. It is replaced by an
-analytic transmittance term, which is both cheaper and better behaved than trying
-to resolve a hundred thousand leaf cards in a depth buffer.
-
-**Volumetrics.** A half-resolution dithered raymarch for the light shafts.
-
-**Post-processing.** The scene is never tone mapped more than once, and the tone
-map is the last thing that happens rather than the first. Everything that adds
-or moves light -- in-scattered mist, lens glare, defocus, the shutter -- happens
-in linear HDR before the curve, because all of it is radiance. The grade sits on
-both sides of the curve: channel crosstalk and an ASC slope/offset/power on the
-linear side, where a film stock's response lives, and the toe, the midtone
-contrast and the split tone after the transfer function, where a print's
-densities live. Putting the print half in linear is a mistake worth naming: a
-toe lift of 0.014 becomes thirty-two code values there.
-
-The circle of confusion is the thin-lens formula for a 35 mm lens at f/2.8
-focused at 5.5 m, with the sensor size derived from the render's own field of
-view so the two agree. Motion blur has no velocity buffer behind it; it
-reconstructs screen velocity from the depth buffer and the previous frame's
-view-projection, which is exact for everything in this world that is not
-growing. The sky needs no special case in that reconstruction and gets none: it
-has no geometry, so the buffer holds the clear value there, the far plane
-unprojects, and under rotation the answer is exactly right. What had made the sky
-the sharpest thing in a fast pan was not the velocity but the weight -- far taps
-were rejected on depth alone, and every tap on a sky pixel is far. Rejection is
-now on parallax, which pure rotation puts at zero.
-
-The numbers these were tuned to are all differences of controlled pairs, which is
-to say two frames from one frozen world state with one term switched between
-them. It matters more than it sounds: the predecessor of `tools/fx.mjs` set each
-half of a pair up from scratch, so the two frames were two seconds of falling
-water apart and differencing them measured the waterfall. Grain measures a
-luminance sigma of 1.24 over a frame and 1.60 at the peak of its density curve,
-against 0.88 in deep shadow and 0.82 in the shoulder. Bloom adds 1.17 code values
-to the frame mean at the falls and 8.0 across the top of the curtain, and 0.00 --
-to the last code value -- in a dark corner a third of a frame away, which is the
-difference between veiling glare and haze. Defocus removes 42 to 52 per cent of
-the laplacian energy of the near understory, at every tier. The shutter's blur
-grows monotonically to at least 137 degrees a second, where a frame travels 43
-pixels against a sampling limit of 56, and the sky smears with everything else.
-
-Nothing on the walk clips. The largest single channel value in a frame is 241, at
-all seven stops on all four tiers, and the share at or above 245 is 0.000 per
-cent -- which is the standing requirement for the waterfall and is met with room to
-spare.
-
-**Audio.** The DSP is pure functions: `Float32Array` in, `Float32Array` out, with
-no Web Audio anywhere in the synthesis path. Only `src/audio/engine.js` touches
-the Web Audio API. That separation is what lets the exact same code render the
-soundscape to WAV files offline in Node, which is how it gets measured.
-
-The ambient beds loop at 9.31, 10.69, 11.73, 12.07, 13.37, 13.93, 14.91 and 16.41
-seconds. Those lengths are mutually incommensurate, so the soundscape has no
-common period and never audibly repeats.
-
-![Temple clearing](media/04-temple-clearing.jpg)
-
-## Status
-
-Honest version: this is not finished.
-
-- **In:** terrain, vegetation, lighting, ruins, character, audio, water and
-  post-processing.
-- **Closed at 6/10 after four critic passes:** water. A blind critic scored it
-  3, then 4, then 5, then 6 out of 10 and closed it there. It ruled the falling
-  curtain itself closed after the third pass -- the remaining gap there is satin
-  instead of droplets, which is a limit of representing a fall as a swept quad
-  sheet rather than something shader tuning can reach. Work after that ruling
-  went to everything around the curtain: the churn dome, the plunge basin's foam
-  rafts, a feeding stream above the lip, a visible brook, a planar reflection in
-  the pool, readable waterline bands on the masonry, and the tongue at the lip.
-  The impact zone, the worst offender for three passes, is now the best part of
-  the system. What the critic left on the table for a future pass: the brook's
-  banks are still straight, the reflection is soft, the masonry bands do not
-  quite line up between blocks, and the lip crest wants notching.
-- **Reviewed at 7/10:** post-processing. A blind critic called it the best-built
-  system in the project and the first whose defining quality is restraint rather
-  than effort, scoring the aberration 9 and the vignette, the grade and the
-  near-field defocus 8 each. Its punch list has been worked: the sky no longer
-  sits sharp in a fast pan, the shutter no longer stops getting blurrier at a
-  third of the rate it should, defocus is real on `low` and `medium` instead of
-  being a measured no-op there, the bloom pyramid reaches far enough to be worth
-  having, and the grain is at an amplitude a soft frame can use.
-- **Open, and the largest thing left in the project:** the middle distance.
-  Everything past about eight metres reads as a flat khaki wall. The haze is too
-  thick, the greens have almost no channel separation -- the green channel's lead
-  over red in the sunlit canopy is 1.7 code values where footage would have
-  several times that -- and there is no backlit leaf translucency, so depth is
-  carried by fog rather than by silhouette layering and occlusion. It is one
-  problem wearing three costumes across the vegetation, lighting and grading
-  systems. It was started and backed out again rather than shipped half checked;
-  the reasoning is in `a8842aa` and in the comment above `GRADE` in
-  `src/render/grade.js`. It should be picked up in the vegetation and lighting
-  materials first, because a grade cannot manufacture channel separation the
-  render did not hand it.
-
-The vegetation and lighting critics signed off at 5/10 and 6/10 respectively, and
-they signed off on diminishing returns rather than on perfection.
-
-![The falls through haze](media/05-falls.jpg)
-
-## A note on dependencies
-
-`package.json` has zero runtime npm dependencies, but this is not a page that
-loads nothing over the network: Three.js r170 is fetched from a jsDelivr CDN at
-runtime through an importmap in `index.html`. Three.js and nothing else.
-
-The zero-asset claim is a separate one, and it is airtight. There is no
-`TextureLoader`, `GLTFLoader`, `RGBELoader`, `AudioLoader`, `fetch`,
-`XMLHttpRequest`, `new Image` or `createImageBitmap` anywhere in `src/`.
-
-There is exactly one image element in the project and it is not in the scene:
-the still on the mobile capability screen. Its source is a base64 data URI in
-`src/mobile/poster.js`, a 29 kB frame of this renderer carried in the source
-rather than fetched from `media/`, because a path into `media/` would be the one
-runtime asset load this page does not make. It is imported only by the gate,
-which only a coarse pointer reaches, so a desktop never downloads it.
-
-## How it was built
-
-The original brief this was built from is kept unedited in [PROMPT.md](PROMPT.md).
-
-Each system was built and then reviewed by a separate critic that saw only
-rendered screenshots and never the source. The critic scored photorealism against
-real jungle photography, and the system was iterated until it passed.
-
-Reviewing renders rather than code caught real bugs that reading the source would
-not have:
-
-- Tree trunks rendering black, from inverted quad winding.
-- Dark outlines around every leaf, from a premultiplied-alpha bug in the texture
-  baker.
-- Volumetric light shafts standing vertically at sunset, because canopy distance
-  was being measured straight up instead of along the sun ray.
-
-## Licence
-
-MIT. See [LICENSE](LICENSE).
+한국어판에서도 원작의 기여와 출처를 그대로 인정합니다. Three.js 등 외부 라이브러리의 라이선스는 해당 프로젝트의 조건을 따릅니다.
