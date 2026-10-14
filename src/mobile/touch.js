@@ -48,7 +48,7 @@ export function attachTouchControls(game) {
   const pad = document.createElement('button');
   pad.className = 'touch__walk';
   pad.type = 'button';
-  pad.setAttribute('aria-label', 'Hold to walk');
+  pad.setAttribute('aria-label', '누르고 있으면 걷기');
   const arrow = document.createElement('span');
   arrow.className = 'touch__arrow';
   arrow.setAttribute('aria-hidden', 'true');
